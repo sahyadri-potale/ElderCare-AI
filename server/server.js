@@ -23,7 +23,14 @@ const app = express()
 const PORT = Number(process.env.PORT) || 5001
 const geminiApiKeyConfigured = Boolean(process.env.GEMINI_API_KEY?.trim())
 
-app.use(cors({ origin: 'http://localhost:5173' }))
+const corsOptions = {
+  origin: ['http://localhost:5173', 'https://elder-care-ai-three.vercel.app'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 204,
+}
+
+app.use(cors(corsOptions))
 app.use(express.json())
 
 app.get('/', (req, res) => {
